@@ -1,0 +1,41 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat',sans-serif;
+}
+
+/* Customize Swiper Navigation Buttons */
+.swiper-button-next, .swiper-button-prev {
+    color: black; 
+    width: 30px; 
+    height: 40px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    opacity: 1; 
+    transition: background-color 0.3s ease; 
+  }
+  
+  /* Hover effect for buttons */
+  .swiper-button-next:hover, .swiper-button-prev:hover {
+    color: #ff8040; /* Change background on hover */
+  }
+
+  .animation {
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+  }
+  
+  .swiper-slide-active .animation {
+    opacity: 1;
+  }
+  
+  
