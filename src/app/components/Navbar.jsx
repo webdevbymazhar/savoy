@@ -245,7 +245,7 @@ const Navbar = () => {
                       <a>Contact</a>
                     </li>
                     <li>
-                      <a>FAQS</a>
+                      <a>FAQ'S</a>
                     </li>
                   </ul>
                 </div>
@@ -277,24 +277,9 @@ const Navbar = () => {
 
         {/* Right Section */}
         <div className="flex items-center">
-          <div className="text-lg lg:hidden">
-          <div className="drawer drawer-end">
-  <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-  <div className="drawer-content">
-    {/* Page content here */}
-    <label htmlFor="my-drawer-4" className="text-[#707070]">Cart</label>
-  </div>
-  <div className="drawer-side">
-    <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-    <div className="menu bg-[#282828] text-base-content min-h-full w-80 p-4">
-      <Cart/>
-    </div>
-  </div>
-</div>
-          </div>
-          <div className="hidden lg:flex">
+          <div >
             <ul className="flex gap-5 font-medium">
-              <li className="text-[#707070]">Sign In</li>
+              <li className="hidden lg:block text-[#707070]">Sign In</li>
               <li className="text-[#707070]">
               <div className="drawer drawer-end z-auto">
   <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -304,7 +289,7 @@ const Navbar = () => {
   </div>
   <div className="drawer-side">
     <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-    <div className="menu bg-[#282828] text-base-content min-h-full w-80 p-4">
+    <div className="menu bg-[#282828] text-base-content min-h-full w-96 p-4">
       <Cart/>
     </div>
   </div>
