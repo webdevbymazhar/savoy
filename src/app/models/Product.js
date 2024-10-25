@@ -9,15 +9,15 @@ let productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  image: {
-    type: String,
-    required: true,
-  },
+  image: [
+    {type:String}
+  ],
   stock: {
     type: Number,
   },
   sold: {
     type: Number,
+    default:0
   },
   category: {
     type: String,
@@ -28,6 +28,6 @@ let productSchema = new mongoose.Schema({
 });
 
 
-let Product = new mongoose.model("products",productSchema)
+let Product = mongoose.models.products || mongoose.model("products",productSchema)
 
 export default Product
