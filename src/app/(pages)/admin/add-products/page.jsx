@@ -4,8 +4,14 @@ import React, { useState } from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import { Plus } from "lucide-react";
 import ReactQuill from "react-quill";
+import dynamic from "next/dynamic"; 
 import "react-quill/dist/quill.snow.css";
 import toast from "react-hot-toast";
+
+dynamic(() => import("react-quill"), {
+  ssr: false, // Prevent server-side rendering for this component
+  loading: () => <p>Loading...</p>, // Optional: Loading fallback
+});
 
 const AddProduct = () => {
   let [data, setdata] = useState({
@@ -15,10 +21,12 @@ const AddProduct = () => {
     stock: "",
     category: "",
     description: "",
+    colors: [], // Add colors array to data state
   });
 
   let [desc, setdesc] = useState("");
   let [loading, setloading] = useState(false);
+  let [colorInput, setColorInput] = useState(""); // State for the color input
 
   let handleChange = (e) => {
     setdata({ ...data, [e.target.name]: e.target.value });
@@ -26,6 +34,26 @@ const AddProduct = () => {
 
   let handleDescription = (e) => {
     setdesc(e);
+  };
+
+  let handleColorInput = (e) => {
+    setColorInput(e.target.value);
+  };
+
+  // Function to handle adding colors
+  let handleAddColor = (e) => {
+    // Prevent form submission on Enter
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent default form submission
+  
+      if (colorInput) {
+        setdata((prev) => ({
+          ...prev,
+          colors: [...prev.colors, colorInput], // Add color to colors array
+        }));
+        setColorInput(""); // Clear the input field
+      }
+    }
   };
 
   let handleSubmit = async (e) => {
@@ -58,15 +86,14 @@ const AddProduct = () => {
 
       if (finalres) {
         toast.success("Product added successfully");
-        setdata({
-          title: "",
-          price: "",
-          image: [],  // Reset the image array after submission
-          stock: "",
-          category: "",
-          description: "",
-        });
+       setTimeout(() => {
+        if(typeof window !== "undefined"){
+          window.location.reload()
+        }
+       }, 2000);
       }
+    console.log(data);
+    
     } catch (error) {
       toast.error(error.message || "Something went wrong. Try again!");
     } finally {
@@ -111,12 +138,10 @@ const AddProduct = () => {
                     )}
                   </CldUploadWidget>
                   <div className="flex items-center gap-3">{data.image.length === 0 ? "No Images Selected" : 
-                    data.image.map((v,i)=>{
+                    data.image.map((v,i)=> {
                       return <div key={i} className="bg-white border border-black  rounded-md text-white mt-5 mb-5 w-16 h-16 flex gap-3 justify-center items-center"><img className="object-contain" src={v} alt="" /></div>
                     })}</div>
                 </div>
-
-                
 
                 <div className="flex gap-3 items-center ">
                   <div className="flex flex-col gap-1">
@@ -143,53 +168,83 @@ const AddProduct = () => {
                 </div>
 
                 <div className="flex gap-3 items-center mt-5">
-  <div className="flex flex-col gap-1">
-    <label htmlFor="">Categories :</label>
-    <select
-      value={data.category}
-      onChange={handleChange}
-      name="category"
-      className="border border-black w-[18vw] rounded-md h-8"
-    >
-      <option value="furniture">Furniture</option>
-      <option value="wall-art">Wall Art</option>
-      <option value="lightning">Lightning</option>
-      <option value="decoration">Decoration</option>
-    </select>
-  </div>
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="">Categories :</label>
+                    <select
+                      value={data.category}
+                      onChange={handleChange}
+                      name="category"
+                      className="border border-black w-[18vw] rounded-md h-8"
+                    >
+                      <option value="furniture">Furniture</option>
+                      <option value="wall-art">Wall Art</option>
+                      <option value="lightning">Lightning</option>
+                      <option value="decoration">Decoration</option>
+                    </select>
+                  </div>
 
-  <div className="flex flex-col gap-1">
-    <label htmlFor="">Stock :</label>
-    <input
-      className="w-[18vw] h-8 border rounded-md border-black px-2"
-      onChange={handleChange}
-      name="stock"
-      value={data.stock}
-      type="number"
-    />
-  </div>
-</div>
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="">Stock :</label>
+                    <input
+                      className="w-[18vw] h-8 border rounded-md border-black px-2"
+                      onChange={handleChange}
+                      name="stock"
+                      value={data.stock}
+                      type="number"
+                    />
+                  </div>
+                </div>
 
-<div className="flex flex-col gap-2 mt-5">
-  <label htmlFor="">Description :</label>
-  <ReactQuill
-    className="w-full h-[20vh]"
-    theme="snow"
-    value={desc}
-    onChange={handleDescription}
-  />
-</div>
+                {/* Color Input Section */}
+                <div className="flex flex-col mt-3 gap-1">
+                  <label htmlFor="">Colors :</label>
+                  <div className="flex gap-2 items-center">
+                    <input
+                      className="border rounded-md h-8 px-2"
+                      onChange={handleColorInput}
+                      value={colorInput}
+                      onKeyDown={handleAddColor} // Handle adding color on Enter
+                      type="text"
+                      placeholder="black or #000"
+                      
+                    />
+                   
+                    <div className="flex gap-2">
+                      {data.colors.map((color, index) => (
+                        <div
+                          key={index}
+                          className="w-6 h-6 rounded-full border-2 border-white"
+                          style={{ backgroundColor: color }} // Set background color
+                        ></div>
+                      ))}
+                    </div>
+                    <br />
+                    
+                  </div>
+                </div>
+                
+                <p className="mt-1 text-[#929393]">*Enter Color Name and Press Enter</p>
 
-<button
-  className="mt-14 bg-black w-[10vw] flex justify-center items-center p-1 rounded-md text-white"
-  onClick={handleSubmit}
->
-  {loading ? (
-    <span className="loading loading-infinity loading-md"></span>
-  ) : (
-    "Add Product"
-  )}
-</button>
+                <div className="flex flex-col gap-2 mt-5">
+                  <label htmlFor="">Description :</label>
+                  <ReactQuill
+                    className="w-full h-[20vh]"
+                    theme="snow"
+                    value={desc}
+                    onChange={handleDescription}
+                  />
+                </div>
+
+                <button
+                  className="mt-14 bg-black w-[10vw] flex justify-center items-center p-1 rounded-md text-white"
+                  onClick={handleSubmit}
+                >
+                  {loading ? (
+                    <span className="loading loading-infinity loading-md"></span>
+                  ) : (
+                    "Add Product"
+                  )}
+                </button>
               </form>
             </div>
           </div>
@@ -203,4 +258,3 @@ const AddProduct = () => {
 };
 
 export default AddProduct;
-

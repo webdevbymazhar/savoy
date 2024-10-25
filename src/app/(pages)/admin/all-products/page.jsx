@@ -1,133 +1,77 @@
-import React from 'react'
-
+"use client";
+import axios from 'axios';
+import { Eye, SquarePen, Trash, Trash2 } from 'lucide-react';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
 const AllProducts = () => {
+  const [products, setProducts] = useState([]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get("/api/product");
+      setProducts(response.data.products);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
-   <div>
-    <div className="overflow-x-auto">
-  <table className="table">
-    {/* head */}
-    <thead>
-      <tr>
-        <th></th>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Stock</th>
-        <th>Update</th>
-        <th>Delete</th>
+    <div className='mt-5'>
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-white uppercase bg-[#484846] dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">Product name</th>
+              <th scope="col" className="px-6 py-3">Color</th>
+              <th scope="col" className="px-6 py-3">Category</th>
+              <th scope="col" className="px-6 py-3">Stock</th>
+              <th scope="col" className="px-6 py-3">Price</th>
+              <th scope="col" className="px-6 py-3">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product, index) => (
+              <tr
+                key={index}
+                className={`${
+                  index % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800"
+                } border-b dark:border-gray-700`}
+              >
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {product.title}
+                </th>
+                <td className="px-6 py-4 flex space-x-2">
+                  {product.colors.map((color, i) => (
+                    <div
+                      key={i}
+                      style={{ backgroundColor: color }}
+                      className="w-6 h-6 rounded-full border border-gray-300 dark:border-gray-700"
+                    ></div>
+                  ))}
+                </td>
+                <td className="px-6 py-4">{product.category}</td>
+                <td className="px-6 py-4">{product.stock}</td>
+                <td className="px-6 py-4">${product.price}</td>
+                <td className="px-6 py-4 ">
+                  <div className=' flex items-center'>
 
-      </tr>
-    </thead>
-    <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-        <td><button className="btn btn-warning">Update</button></td>
-        <td><button className="btn btn-error">Delete</button></td>
-      </tr>
-      {/* row 2 */}
-      <tr>
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      {/* row 3 */}
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
+                <Link  href={"/"}><SquarePen color='orange' /></Link>
+                  <Link className='ml-2' href={"/"}><Eye color='lightblue'/></Link>
+                  <Link  className='ml-2'  href={"/"}><Trash2 color='red' /></Link>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
 
-
-
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-   </div>
-  )
-}
-
-export default AllProducts
+export default AllProducts;

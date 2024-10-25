@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-let productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -10,14 +10,16 @@ let productSchema = new mongoose.Schema({
     required: true,
   },
   image: [
-    {type:String}
+    {
+      type: String,
+    },
   ],
   stock: {
     type: Number,
   },
   sold: {
     type: Number,
-    default:0
+    default: 0,
   },
   category: {
     type: String,
@@ -25,9 +27,14 @@ let productSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  colors: [
+    {
+      type: String, // Store color names or hex codes as strings
+    },
+  ],
 });
 
+// Ensure the model is only created once
+const Product = mongoose.models.products || mongoose.model("products", productSchema);
 
-let Product = mongoose.models.products || mongoose.model("products",productSchema)
-
-export default Product
+export default Product;

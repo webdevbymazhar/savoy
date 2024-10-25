@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     dbConnection();
     try {
-        let { title, image, price, stock, category, description } = await req.json();
+        let { title, image, price, stock, category, description, colors } = await req.json();
         if (!title || !image || !price || !stock || !category || !description) {
             return NextResponse.json({
                 message: "Please fill all the credentials",
@@ -13,7 +13,7 @@ export async function POST(req) {
         }
 
         let newProduct = new Product({
-            title, image, price, stock, category, description
+            title, image, price, stock, category, description, colors
         });
         await newProduct.save();
 
@@ -26,3 +26,18 @@ export async function POST(req) {
         }, { status: 400 });
     }
 }
+
+export async function GET(){
+    dbConnection();
+    try {
+        let products = await Product.find()
+        return NextResponse.json({
+            products
+        }, { status: 200 });
+
+    } catch (error) {
+        return NextResponse.json({
+            message: error.message 
+        }, { status: 400 });
+    }
+    }
