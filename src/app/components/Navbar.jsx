@@ -245,7 +245,7 @@ const Navbar = () => {
                       <a>Contact</a>
                     </li>
                     <li>
-                      <a>FAQ'S</a>
+                      <a>FAQ&apos;S</a>
                     </li>
                   </ul>
                 </div>

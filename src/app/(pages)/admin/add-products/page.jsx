@@ -1,18 +1,16 @@
-"use client";
-
+"use client"
 import React, { useState } from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import { Plus } from "lucide-react";
-import ReactQuill from "react-quill";
-import dynamic from "next/dynamic"; 
-import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
 
-dynamic(() => import("react-quill"), {
-  ssr: false, // Prevent server-side rendering for this component
-  loading: () => <p>Loading...</p>, // Optional: Loading fallback
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false, // Prevent SSR for this component
+  loading: () => <p>Loading...</p>,
 });
 
+import "react-quill/dist/quill.snow.css";
 const AddProduct = () => {
   let [data, setdata] = useState({
     title: "",
