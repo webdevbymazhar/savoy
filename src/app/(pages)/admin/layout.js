@@ -18,7 +18,7 @@ import React, { useEffect, useState } from "react";
 const Dashboard = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const [pageTitle, setPageTitle] = useState("");
+  
   const [token, setToken] = useState(null);
 
   useEffect(() => {
@@ -32,17 +32,7 @@ const Dashboard = ({ children }) => {
     }
   }, [pathname, router]);
 
-  useEffect(() => {
-    const formatTitle = (path) => {
-      const segments = path.split("/").filter(Boolean);
-      const lastSegment = segments[segments.length - 1];
-      return lastSegment
-        ? lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1).toLowerCase()
-        : "";
-    };
-
-    setPageTitle(formatTitle(pathname));
-  }, [pathname]);
+  
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -55,7 +45,6 @@ const Dashboard = ({ children }) => {
     { href: "/admin/dashboard", icon: <LayoutDashboard />, label: "Dashboard" },
     { href: "/admin/all-products", icon: <ShoppingBasket />, label: "All Products" },
     { href: "/admin/add-products", icon: <CirclePlus />, label: "Add Product" },
-    { href: "/admin/edit-products", icon: <UserPen />, label: "Update Product" },
     { href: "/admin/orders", icon: <Package />, label: "Orders" },
     { href: "/admin/orders", icon: <SquarePen />, label: "Blogs" },
     { href: "/admin/orders", icon: <ChartBar />, label: "Categories" },
@@ -110,7 +99,7 @@ const Dashboard = ({ children }) => {
       {/* Main Content */}
       <div className="ml-[16.666%] w-full h-screen overflow-y-auto p-7">
         <div className="flex items-center justify-between border-b border-[lightgrey] pb-2">
-          <p className="text-2xl font-bold">{pageTitle}</p>
+          <p className="text-2xl font-bold">Admin Dashboard</p>
           <div className="flex items-center gap-3">
             <span className="animate-spin-slow">
               <Settings size={30} />

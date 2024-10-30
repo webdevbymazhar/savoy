@@ -6,13 +6,17 @@ import React, { useEffect, useState } from 'react';
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
+  const [loading,setloading] = useState(false)
 
   const fetchProducts = async () => {
+    setloading(true)
     try {
       const response = await axios.get("/api/product");
       setProducts(response.data.products);
     } catch (error) {
       console.error(error);
+    }finally{
+      setloading(false)
     }
   };
 
@@ -22,7 +26,9 @@ const AllProducts = () => {
 
   return (
     <div className='mt-5'>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      {
+        loading ? <div className='w-full flex justify-center items-center'><span className="loading loading-spinner loading-md"></span>
+</div> : <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-white uppercase bg-[#484846] dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -60,7 +66,7 @@ const AllProducts = () => {
                 <td className="px-6 py-4 ">
                   <div className=' flex items-center'>
 
-                <Link  href={"/"}><SquarePen color='orange' /></Link>
+                <Link  href={`/admin/edit-products/${product._id}`}><SquarePen color='orange' /></Link>
                   <Link className='ml-2' href={"/"}><Eye color='lightblue'/></Link>
                   <Link  className='ml-2'  href={"/"}><Trash2 color='red' /></Link>
                   </div>
@@ -70,6 +76,7 @@ const AllProducts = () => {
           </tbody>
         </table>
       </div>
+      }
     </div>
   );
 };

@@ -1,102 +1,130 @@
-"use client"
-import React, { useState } from "react";
+"use client";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import { Plus } from "lucide-react";
 import dynamic from "next/dynamic";
 import toast from "react-hot-toast";
 
 const ReactQuill = dynamic(() => import("react-quill"), {
-  ssr: false, // Prevent SSR for this component
+  ssr: false,
   loading: () => <p>Loading...</p>,
 });
 
 import "react-quill/dist/quill.snow.css";
-import { useRouter } from "next/navigation";
-const AddProduct = () => {
-  let [data, setdata] = useState({
+
+const EditProduct = ({ params }) => {
+  const [product, setProduct] = useState({
     title: "",
     price: "",
-    image: [],  // Store multiple images
+    image: [],
     stock: "",
     category: "",
     description: "",
-    colors: [], // Add colors array to data state
+    colors: [],
   });
+  const [desc, setDesc] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [colorInput, setColorInput] = useState("");
 
-  let [desc, setdesc] = useState("");
-  let [loading, setloading] = useState(false);
-  let [colorInput, setColorInput] = useState(""); // State for the color input
-  let router = useRouter()
-
-  let handleChange = (e) => {
-    setdata({ ...data, [e.target.name]: e.target.value });
+  const fetchProduct = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`/api/product/${params.id}`);
+      setProduct(response.data.product);
+      setDesc(response.data.product.description); // Set description
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch product details.");
+    }finally{
+        setLoading(false)
+    }
   };
 
-  let handleDescription = (e) => {
-    setdesc(e);
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
+  const handleChange = (e) => {
+    setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
-  let handleColorInput = (e) => {
+  const handleDescription = (e) => {
+    setDesc(e);
+  };
+
+  const handleColorInput = (e) => {
     setColorInput(e.target.value);
   };
 
-  // Function to handle adding colors
-  let handleAddColor = (e) => {
-    // Prevent form submission on Enter
+  const handleAddColor = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault(); // Prevent default form submission
-  
+      e.preventDefault();
       if (colorInput) {
-        setdata((prev) => ({
+        setProduct((prev) => ({
           ...prev,
-          colors: [...prev.colors, colorInput], // Add color to colors array
+          colors: [...prev.colors, colorInput],
         }));
-        setColorInput(""); // Clear the input field
+        setColorInput("");
       }
     }
   };
 
-  let handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setloading(true);
-
+    setLoading(true);
     try {
-      let response = await fetch("/api/product", {
-        method: "POST",
+      const response = await fetch(`/api/product/${params.id}`, {
+        method: "PUT", // Use PUT for updating
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...data,
+          ...product,
           description: desc,
         }),
       });
-
-      if (response.status === 400) {
-        let result = await response.json(); // Parse the response JSON
-        toast.error(result.message || "Something went wrong. Please try again");
-        return;
-      }
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      let finalres = await response.json();
-
-      if (finalres) {
-        toast.success("Product added successfully");
-       router.push("/admin/all-products")
-       
+      const finalRes = await response.json();
+      if (finalRes) {
+        toast.success("Product updated successfully");
+        setTimeout(() => {
+          if (typeof window !== "undefined") {
+            window.location.reload();
+          }
+        }, 2000);
       }
-    console.log(data);
-    
     } catch (error) {
       toast.error(error.message || "Something went wrong. Try again!");
     } finally {
-      setloading(false);
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+        <div className="animate-pulse mt-5">
+        <div className="flex gap-4">
+        <div className="skeleton h-20 w-20 mb-4 bg-gray-300 rounded" />
+        <div className="skeleton h-20 w-20 mb-4 bg-gray-300 rounded" />
+        <div className="skeleton h-20 w-20 mb-4 bg-gray-300 rounded" />
+        </div>
+        <div className="flex gap-3 mt-4">
+        <div className="skeleton h-10 w-96 mb-4 bg-gray-300 rounded" />
+        <div className="skeleton h-10 w-96 mb-4 bg-gray-300 rounded" />
+        </div>
+        <div className="flex gap-3 mt-4">
+        <div className="skeleton h-10 w-96 mb-4 bg-gray-300 rounded" />
+        <div className="skeleton h-10 w-96 mb-4 bg-gray-300 rounded" />
+        </div>
+        
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-12">
@@ -104,9 +132,9 @@ const AddProduct = () => {
         <div>
           <div className="w-full">
             <div className="p-4">
-              <form className="flex flex-col">
+              <form className="flex flex-col" onSubmit={handleSubmit}>
                 <h1 className="text-xl font-extrabold border-b pb-1 w-full">
-                  Product Information
+                  Edit Product Information
                 </h1>
                 <div className="flex gap-2 items-center">
                   <CldUploadWidget
@@ -114,9 +142,9 @@ const AddProduct = () => {
                     uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
                     onSuccess={(results) => {
                       if (results.info?.secure_url && results.event === "success") {
-                        setdata((data) => ({
-                          ...data,
-                          image: [...data.image, results.info.secure_url],  // Append image URL to the array
+                        setProduct((prev) => ({
+                          ...prev,
+                          image: [...prev.image, results.info.secure_url],
                         }));
                       }
                     }}
@@ -128,37 +156,44 @@ const AddProduct = () => {
                           e.preventDefault();
                           open();
                         }}
-                        className="bg-white border border-black  rounded-md  p-3 mt-5 mb-5 w-16 h-16 flex gap-3 justify-center items-center "
+                        className="bg-white border border-black rounded-md p-3 mt-5 mb-5 w-16 h-16 flex gap-3 justify-center items-center"
                       >
-                        <span className="flex flex-col justify-center items-center text-sm "><Plus size={20} color="black"/><span >Upload</span></span>
+                        <span className="flex flex-col justify-center items-center text-sm">
+                          <Plus size={20} color="black" />
+                          <span>Upload</span>
+                        </span>
                       </button>
                     )}
                   </CldUploadWidget>
-                  <div className="flex items-center gap-3">{data.image.length === 0 ? "No Images Selected" : 
-                    data.image.map((v,i)=> {
-                      return <div key={i} className="bg-white border border-black  rounded-md text-white mt-5 mb-5 w-16 h-16 flex gap-3 justify-center items-center"><img className="object-contain" src={v} alt="" /></div>
-                    })}</div>
+                  <div className="flex items-center gap-3">
+                    {product.image.length === 0 ? "No Images Selected" :
+                      product.image.map((v, i) => (
+                        <div key={i} className="bg-white border border-black rounded-md text-white mt-5 mb-5 w-16 h-16 flex gap-3 justify-center items-center">
+                          <img className="object-contain" src={v} alt="" />
+                        </div>
+                      ))}
+                  </div>
                 </div>
 
-                <div className="flex gap-3 items-center ">
+                <div className="flex gap-3 items-center">
                   <div className="flex flex-col gap-1">
-                    <label htmlFor="">Title :</label>
+                    <label htmlFor="">Title:</label>
                     <input
                       className="w-[18vw] h-8 border rounded-md border-black px-2"
                       onChange={handleChange}
                       name="title"
-                      value={data.title}
+                      value={product.title}
                       type="text"
                     />
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <label htmlFor="">Price :</label>
+                    <label htmlFor="">Price:</label>
                     <input
                       className="w-[18vw] h-8 border rounded-md border-black px-2"
                       onChange={handleChange}
                       name="price"
-                      value={data.price}
+                      value={product.price}
                       type="number"
                     />
                   </div>
@@ -166,9 +201,9 @@ const AddProduct = () => {
 
                 <div className="flex gap-3 items-center mt-5">
                   <div className="flex flex-col gap-1">
-                    <label htmlFor="">Categories :</label>
+                    <label htmlFor="">Categories:</label>
                     <select
-                      value={data.category}
+                      value={product.category}
                       onChange={handleChange}
                       name="category"
                       className="border border-black w-[18vw] rounded-md h-8"
@@ -181,12 +216,12 @@ const AddProduct = () => {
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <label htmlFor="">Stock :</label>
+                    <label htmlFor="">Stock:</label>
                     <input
                       className="w-[18vw] h-8 border rounded-md border-black px-2"
                       onChange={handleChange}
                       name="stock"
-                      value={data.stock}
+                      value={product.stock}
                       type="number"
                     />
                   </div>
@@ -194,36 +229,32 @@ const AddProduct = () => {
 
                 {/* Color Input Section */}
                 <div className="flex flex-col mt-3 gap-1">
-                  <label htmlFor="">Colors :</label>
+                  <label htmlFor="">Colors:</label>
                   <div className="flex gap-2 items-center">
                     <input
                       className="border rounded-md h-8 px-2"
                       onChange={handleColorInput}
                       value={colorInput}
-                      onKeyDown={handleAddColor} // Handle adding color on Enter
+                      onKeyDown={handleAddColor}
                       type="text"
                       placeholder="black or #000"
-                      
                     />
-                   
                     <div className="flex gap-2">
-                      {data.colors.map((color, index) => (
+                      {product.colors.map((color, index) => (
                         <div
                           key={index}
                           className="w-6 h-6 rounded-full border-2 border-white"
-                          style={{ backgroundColor: color }} // Set background color
+                          style={{ backgroundColor: color }}
                         ></div>
                       ))}
                     </div>
-                    <br />
-                    
                   </div>
                 </div>
                 
                 <p className="mt-1 text-[#929393]">*Enter Color Name and Press Enter</p>
 
                 <div className="flex flex-col gap-2 mt-5">
-                  <label htmlFor="">Description :</label>
+                  <label htmlFor="">Description:</label>
                   <ReactQuill
                     className="w-full h-[20vh]"
                     theme="snow"
@@ -234,12 +265,12 @@ const AddProduct = () => {
 
                 <button
                   className="mt-14 bg-black w-[10vw] flex justify-center items-center p-1 rounded-md text-white"
-                  onClick={handleSubmit}
+                  type="submit"
                 >
                   {loading ? (
                     <span className="loading loading-infinity loading-md"></span>
                   ) : (
-                    "Add Product"
+                    "Update Product"
                   )}
                 </button>
               </form>
@@ -254,4 +285,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

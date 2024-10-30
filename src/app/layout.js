@@ -5,7 +5,7 @@ export const metadata = {
   title: 'Savoy',
   description: 'Buy Anything',
   icons: {
-    icon: '/logo.png', // Path to your favicon
+    icon: '/s.png', // Path to your favicon
   },
 };
 
