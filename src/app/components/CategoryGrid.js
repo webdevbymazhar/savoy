@@ -99,7 +99,7 @@ const CategoryGrid = () => {
       </p>
     </div>
 
-   <div className='grid col-span-12 px-10 gap-4 md:hidden '>
+   <div className='grid col-span-12 px-10 gap-4 lg:hidden '>
    
 
    <div className='col-span-12'>
