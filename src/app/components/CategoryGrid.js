@@ -99,7 +99,7 @@ const CategoryGrid = () => {
       </p>
     </div>
 
-   <div className='grid col-span-12 px-10 gap-4 lg:hidden '>
+   <div className='grid col-span-12 px-5 gap-4 lg:hidden '>
    
 
    <div className='col-span-12'>
@@ -115,7 +115,7 @@ const CategoryGrid = () => {
        <div className='col-span-6'>
         <motion.img 
            className='h-full ' 
-           src="https://utfs.io/f/uurSzZwCUG4txDLvzxQEXFUCcH4bWZroVOz3pTntL7iGKu6a" 
+           src="https://utfs.io/f/uurSzZwCUG4tjasmesGWRcPwSEqmn64iJoejZuy3MHbtXg15" 
            alt="Shoes" 
            whileHover={{ scale: 1.05 }}
            transition={{ duration: 0.3 }}

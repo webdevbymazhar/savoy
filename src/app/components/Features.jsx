@@ -4,7 +4,7 @@ import {motion} from "framer-motion"
 
 export default function Component() {
   return (
-   <div className="flex justify-center items-center">
+   <div className="flex justify-center items-center mt-20 mb-20">
      <div className="flex h-[40vh] items-center justify-center ml-8 ">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
