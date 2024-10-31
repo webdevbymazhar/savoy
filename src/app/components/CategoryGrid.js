@@ -89,48 +89,62 @@ const CategoryGrid = () => {
    </div>
 
 
+   <div className='md:hidden'>
+   <div className="max-w-3xl mx-auto text-center mt-20 mb-20 w-full">
+      <h1 className="text-4xl font-bold text-[#464648]  leading-tight mb-2 border-b border-[lightgrey] pb-2">
+        Our Categories
+      </h1>
+      <p className=" text-lg text-gray-800 mb-8">
+      Explore a wide range of categories curated just for you.
+      </p>
+    </div>
 
    <div className='grid col-span-12 px-10 gap-4 md:hidden '>
+   
 
-    <div className='col-span-12'>
-          <motion.img 
-             
-            src="https://utfs.io/f/uurSzZwCUG4tZghhP2dAkWGeBEzfDN9paYMqObXZ5moC1cut" 
-            alt="Women" 
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-
-        <div className='col-span-6'>
+   <div className='col-span-12'>
          <motion.img 
-            className='h-full ' 
-            src="https://utfs.io/f/uurSzZwCUG4txDLvzxQEXFUCcH4bWZroVOz3pTntL7iGKu6a" 
-            alt="Shoes" 
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-        <div className='col-span-6'>
-         <motion.img 
-            className='h-full object-contain' 
-            src="https://utfs.io/f/uurSzZwCUG4tjasmesGWRcPwSEqmn64iJoejZuy3MHbtXg15" 
-            alt="Shoes" 
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-        <div className='col-span-12'>
-          <motion.img 
-             
-            src="https://utfs.io/f/uurSzZwCUG4t4zH9qmYeO3Yd1Jxs8TzulvBZbRVMFj9G7yIX" 
-            alt="Women" 
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
+            
+           src="https://utfs.io/f/uurSzZwCUG4tZghhP2dAkWGeBEzfDN9paYMqObXZ5moC1cut" 
+           alt="Women" 
+           whileHover={{ scale: 1.05 }}
+           transition={{ duration: 0.3 }}
+         />
+       </div>
 
+       <div className='col-span-6'>
+        <motion.img 
+           className='h-full ' 
+           src="https://utfs.io/f/uurSzZwCUG4txDLvzxQEXFUCcH4bWZroVOz3pTntL7iGKu6a" 
+           alt="Shoes" 
+           whileHover={{ scale: 1.05 }}
+           transition={{ duration: 0.3 }}
+         />
+       </div>
+       <div className='col-span-6'>
+        <motion.img 
+           className='h-full object-contain' 
+           src="https://utfs.io/f/uurSzZwCUG4tjasmesGWRcPwSEqmn64iJoejZuy3MHbtXg15" 
+           alt="Shoes" 
+           whileHover={{ scale: 1.05 }}
+           transition={{ duration: 0.3 }}
+         />
+       </div>
+       <div className='col-span-12'>
+         <motion.img 
+            
+           src="https://utfs.io/f/uurSzZwCUG4t4zH9qmYeO3Yd1Jxs8TzulvBZbRVMFj9G7yIX" 
+           alt="Women" 
+           whileHover={{ scale: 1.05 }}
+           transition={{ duration: 0.3 }}
+         />
+       </div>
+
+  </div>
    </div>
+  
+
+   
     </>
   )
 }
