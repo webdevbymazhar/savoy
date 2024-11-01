@@ -88,61 +88,59 @@ const CategoryGrid = () => {
     </div>
    </div>
 
+   <div className='lg:hidden px-5 '>
 
-   <div className='md:hidden'>
-   <div className="max-w-3xl mx-auto text-center mt-20 mb-20 w-full">
-      <h1 className="text-4xl font-bold text-[#464648]  leading-tight mb-2 border-b border-[lightgrey] pb-2">
+   <div className="max-w-3xl mx-auto text-center mt-20">
+      <h1 className="text-2xl lg:text-4xl font-bold text-[#464648]  leading-tight mb-2 border-b border-[lightgrey] pb-2">
         Our Categories
       </h1>
-      <p className=" text-lg text-gray-800 mb-8">
+      <p className="  lg:text-lg text-gray-800 mb-8">
       Explore a wide range of categories curated just for you.
       </p>
     </div>
 
-   <div className='grid col-span-12 px-5 gap-4 lg:hidden '>
-   
+    <div className='grid grid-cols-12 '>
 
-   <div className='col-span-12'>
-         <motion.img 
-            
-           src="https://utfs.io/f/uurSzZwCUG4tZghhP2dAkWGeBEzfDN9paYMqObXZ5moC1cut" 
-           alt="Women" 
-           whileHover={{ scale: 1.05 }}
-           transition={{ duration: 0.3 }}
-         />
-       </div>
+      <div className='col-span-12 relative'>
+      <img src="https://utfs.io/f/uurSzZwCUG4tZghhP2dAkWGeBEzfDN9paYMqObXZ5moC1cut" alt="" />
 
-       <div className='col-span-6'>
-        <motion.img 
-           className='h-full ' 
-           src="https://utfs.io/f/uurSzZwCUG4tjasmesGWRcPwSEqmn64iJoejZuy3MHbtXg15" 
-           alt="Shoes" 
-           whileHover={{ scale: 1.05 }}
-           transition={{ duration: 0.3 }}
-         />
-       </div>
-       <div className='col-span-6'>
-        <motion.img 
-           className='h-full object-contain' 
-           src="https://utfs.io/f/uurSzZwCUG4tjasmesGWRcPwSEqmn64iJoejZuy3MHbtXg15" 
-           alt="Shoes" 
-           whileHover={{ scale: 1.05 }}
-           transition={{ duration: 0.3 }}
-         />
-       </div>
-       <div className='col-span-12'>
-         <motion.img 
-            
-           src="https://utfs.io/f/uurSzZwCUG4t4zH9qmYeO3Yd1Jxs8TzulvBZbRVMFj9G7yIX" 
-           alt="Women" 
-           whileHover={{ scale: 1.05 }}
-           transition={{ duration: 0.3 }}
-         />
-       </div>
+      <div className=' bg-white absolute bottom-5 left-1/2 rounded-md  p-3 shadow-md transform -translate-x-1/2 '>
+        <p className='text-lg font-bold'>Furniture</p>
+      </div>
+      </div>
 
-  </div>
+    </div>
+
+    <div className='grid grid-cols-12 gap-3 mt-5'>
+
+      <div className='col-span-6 relative'>
+      <img className='w-full h-[200px]' src="https://utfs.io/f/uurSzZwCUG4tamRIsShJB3qh78jEZ29ObtnNMPCmwXpcevaL" alt="" />
+      <div className=' bg-white absolute bottom-5 left-1/2 rounded-md  p-1  shadow-md transform -translate-x-1/2 '>
+      <p className='text-lg font-bold'>Decoration</p>
+      </div>
+      </div>
+      <div className='col-span-6 relative'>
+      <img className='w-full h-[200px]' src="https://utfs.io/f/uurSzZwCUG4tjasmesGWRcPwSEqmn64iJoejZuy3MHbtXg15" alt="" />
+      <div className=' bg-white absolute bottom-5 left-1/2 rounded-md  p-1 shadow-md transform -translate-x-1/2 '>
+        <p className='text-lg font-bold'>Wall Art</p>
+      </div>
+      </div>
+
+    </div>
+
+    <div className='grid grid-cols-12 mt-5 '>
+
+      <div className='col-span-12 relative'>
+      <img src="https://utfs.io/f/uurSzZwCUG4t4zH9qmYeO3Yd1Jxs8TzulvBZbRVMFj9G7yIX" alt="" />
+      <div className=' bg-white absolute bottom-5 left-1/2 rounded-md  p-3 shadow-md transform -translate-x-1/2 '>
+        <p className='text-lg font-bold'>Lightings</p>
+      </div>
+      </div>
+
+    </div>
+
    </div>
-  
+
 
    
     </>

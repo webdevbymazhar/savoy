@@ -24,11 +24,11 @@ const Cards = () => {
 
   return (
    <>
-    <div className="max-w-3xl mx-auto text-center mt-28">
-      <h1 className="text-4xl font-bold text-[#464648]  leading-tight mb-2 border-b border-[lightgrey] pb-2">
+    <div className="max-w-3xl mx-auto text-center mt-28 px-5">
+      <h1 className="text-2xl lg:text-4xl font-bold text-[#464648]  leading-tight mb-2 border-b border-[lightgrey] pb-2">
         Trending Products
       </h1>
-      <p className=" text-lg text-gray-800 mb-8">
+      <p className=" lg:text-lg text-gray-800 mb-8">
       Explore a wide range of our trending products.
       </p>
     </div>

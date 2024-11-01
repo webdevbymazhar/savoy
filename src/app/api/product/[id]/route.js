@@ -5,7 +5,7 @@ export async function GET(request, { params }) {
   const { id } = params; // Retrieve 'id' from route parameters
 
   try {
-    const product = await Product.findById(id); // Use 'findById' for a single document query
+    const product = await Product.findById(id); 
     if (!product) {
       return NextResponse.json({ message: "Product not found" }, { status: 404 });
     }

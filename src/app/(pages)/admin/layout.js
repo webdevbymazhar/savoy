@@ -10,6 +10,7 @@ import {
   ChartBar,
   LogOut,
   Settings,
+  Newspaper,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -46,7 +47,8 @@ const Dashboard = ({ children }) => {
     { href: "/admin/all-products", icon: <ShoppingBasket />, label: "All Products" },
     { href: "/admin/add-products", icon: <CirclePlus />, label: "Add Product" },
     { href: "/admin/orders", icon: <Package />, label: "Orders" },
-    { href: "/admin/orders", icon: <SquarePen />, label: "Blogs" },
+    { href: "/admin/blogs", icon: <Newspaper />, label: "Blogs" },
+    { href: "/admin/create-blog", icon: <SquarePen />, label: "Create Blog" },
     { href: "/admin/orders", icon: <ChartBar />, label: "Categories" },
   ];
 

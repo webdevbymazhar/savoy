@@ -4,6 +4,8 @@ import {
   Facebook,
   Instagram,
   Plus,
+  ShoppingBasket,
+  ShoppingCart,
   Twitter,
   X,
 } from "lucide-react";
@@ -285,7 +287,7 @@ const Navbar = () => {
   <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
   <div className="drawer-content">
     {/* Page content here */}
-    <label htmlFor="my-drawer-4" className="text-[#707070]">Cart</label>
+    <label htmlFor="my-drawer-4" className="text-[#707070]"><ShoppingCart /></label>
   </div>
   <div className="drawer-side">
     <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>

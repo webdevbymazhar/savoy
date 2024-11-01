@@ -16,6 +16,10 @@ module.exports = {
         'spin-slow': 'spin 3s linear infinite',
       },
     },
+    
   },
   plugins: [daisyui],
+  daisyui: {
+    themes: ["light"], // Set the default theme to 'light'
+  },
 };
