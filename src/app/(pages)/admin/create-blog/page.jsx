@@ -1,6 +1,9 @@
 "use client";
 import { useRef, useState } from "react";
 import JoditEditor from "jodit-react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const AddProduct = () => {
   const editor = useRef(null);
@@ -8,19 +11,29 @@ const AddProduct = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
 
+  let router = useRouter()
+
   // Configure Jodit editor settings
   const config = {
     height: "70vh",
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({
-      title,
-      category,
-      content,
-    });
+    try {
+      let res = await axios.post("/api/blog",{
+        title,category,description : content
+      })
+      if(res){
+        toast.success("Blog added successfully")
+        router.push('/admin/blogs')
+      }
+    } catch (error) {
+      toast.error("Something went wrong!")
+      console.log(error);
+      
+    }
   };
 
   return (
@@ -54,9 +67,9 @@ const AddProduct = () => {
                   className="border p-2 rounded"
                 >
                   <option value="">Select a category</option>
-                  <option value="Technology">Technology</option>
-                  <option value="Health">Health</option>
-                  <option value="Finance">Finance</option>
+                  <option value="furniture">Furniture</option>
+                  <option value="lightings">Lightings</option>
+                  <option value="wallart">Wall Art</option>
                   <option value="Education">Education</option>
                   {/* Add more categories as needed */}
                 </select>

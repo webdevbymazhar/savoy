@@ -1,9 +1,10 @@
 "use client"
-import { Heart } from 'lucide-react'
+import { Heart} from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useState } from 'react'
 
-const Card = ({title,images,colors,price}) => {
+const Card = ({title,images,colors,price, id,}) => {
   const [currentImage, setCurrentImage] = useState(images[0]);
   const [showPrice, setShowPrice] = useState(true);
 
@@ -42,7 +43,7 @@ const Card = ({title,images,colors,price}) => {
         />
       </div>
       <div className='p-4' >
-        <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+        <Link href={`/product/${id}`} className="text-lg font-semibold text-gray-800">{title}</Link>
         <p
           className={`mt-1 ${
             showPrice

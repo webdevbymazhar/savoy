@@ -37,7 +37,7 @@ const Cards = () => {
 
            {
             products.map((product,i)=>{
-              return <Card key={i} title={product.title} images={product.image} price={product.price} colors={product.colors}/>
+              return <Card key={i} title={product.title} images={product.image} price={product.price} colors={product.colors} id={product._id} stock={product.stock} sold={product.sold}/>
             })
            }
             
