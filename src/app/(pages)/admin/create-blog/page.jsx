@@ -1,11 +1,15 @@
 "use client";
 import { useRef, useState } from "react";
-import JoditEditor from "jodit-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { CldUploadWidget } from "next-cloudinary";
 import { PlusIcon } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const JoditEditor = dynamic(() => import("jodit-react"), {
+  ssr: false,
+});
 
 const CreateBlog = () => {
   const editor = useRef(null);
@@ -32,21 +36,21 @@ const CreateBlog = () => {
         image,
     });
     
-    // try {
-    //   let res = await axios.post("/api/blog", {
-    //     title,
-    //     category,
-    //     description: content,
-    //     image,
-    //   });
-    //   if (res) {
-    //     toast.success("Blog added successfully");
-    //     router.push("/admin/blogs");
-    //   }
-    // } catch (error) {
-    //   toast.error("Something went wrong!");
-    //   console.log(error);
-    // }
+    try {
+      let res = await axios.post("/api/blog", {
+        title,
+        category,
+        description: content,
+        image,
+      });
+      if (res) {
+        toast.success("Blog added successfully");
+        router.push("/admin/blogs");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+      console.log(error);
+    }
   };
 
   return (
