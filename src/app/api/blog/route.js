@@ -1,7 +1,10 @@
 import Blog from "@/app/models/Blog"
+import dbConnection from "@/config/connectDb"
 import { NextResponse } from "next/server"
 
 export async function POST(req) {
+
+    await dbConnection()
 
     try {
         let {title,category,description} = await req.json()
@@ -21,9 +24,12 @@ export async function POST(req) {
 
 
     } catch (error) {
+        console.log(error);
+        
         return NextResponse.json({
             message : error.message
         },{status:400})
+
     }
     
 }
