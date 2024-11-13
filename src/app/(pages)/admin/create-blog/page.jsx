@@ -42,6 +42,7 @@ const CreateBlog = () => {
         category,
         description: content,
         image,
+        author : "admin"
       });
       if (res) {
         toast.success("Blog added successfully");

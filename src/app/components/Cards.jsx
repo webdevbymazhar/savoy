@@ -9,7 +9,7 @@ const Cards = () => {
 
   const fetchData = async () =>{
     try {
-      let res = await axios.get("/api/product")
+      let res = await axios.get("/api/product?limit=3")
       if(res){
         setproducts(res.data.products)
       }

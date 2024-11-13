@@ -27,17 +27,28 @@ export async function POST(req) {
     }
 }
 
-export async function GET(){
+export async function GET(req) {
     dbConnection();
+
     try {
-        let products = await Product.find()
+        const { searchParams } = new URL(req.url);
+        const limit = parseInt(searchParams.get('limit')) || 0; 
+
+        let products;
+        if (limit > 0) {
+            products = await Product.find().sort({ createdAt: -1 }).limit(limit);
+        } else {
+            products = await Product.find().sort({ createdAt: -1 });
+        }
+
         return NextResponse.json({
             products
         }, { status: 200 });
-
     } catch (error) {
+        console.log(error);
+
         return NextResponse.json({
             message: error.message 
         }, { status: 400 });
     }
-    }
+}
