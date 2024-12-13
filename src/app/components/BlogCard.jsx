@@ -18,7 +18,7 @@ const BlogCard = ({image,category,title,content,author}) => {
   }
   
   return (
-    <div className="flex flex-col overflow-hidden rounded-lg h-[60vh] shadow-lg w-full md:w-[25vw]">
+    <div className="flex flex-col overflow-hidden rounded-lg  shadow-lg w-full md:w-[25vw]">
             <div className="flex-shrink-0">
               <img
                 className="h-48 w-full object-cover"

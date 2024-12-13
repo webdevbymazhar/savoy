@@ -35,7 +35,7 @@ const Blog = ({ params }) => {
     <>
       <Navbar />
       <div className='flex justify-center items-center mt-28'>
-        <div className='w-[60vw] h-auto p-3 leading-[6vh]'>
+        <div className='md:w-[60vw] h-auto p-3 leading-[6vh]'>
           <button className="relative px-4 py-2 mb-5 rounded-lg text-gray-900 hover:text-white font-extrabold text-lg bg-gray-200 overflow-hidden transition-all duration-250 group">
             <span className="relative z-10">
               <div onClick={()=>GoBack()} className='flex justify-center items-center'>

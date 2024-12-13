@@ -33,8 +33,8 @@ useEffect(()=>{
     </div>
         <div className='flex flex-col gap-10 px-10 mt-10 md:flex-row md:items-center md:justify-evenly'>
           {
-            blogs.map((blog)=>{
-              return <Link href={`/blog/${blog._id}`}><BlogCard category={blog.category} image={blog.image} title={blog.title} content={blog.description} author={blog.author}/></Link>
+            blogs.map((blog, index)=>{
+              return <Link key={index} href={`/blog/${blog._id}`}><BlogCard category={blog.category} image={blog.image} title={blog.title} content={blog.description} author={blog.author}/></Link>
             })
           }
      
