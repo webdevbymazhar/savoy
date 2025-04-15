@@ -29,8 +29,8 @@ const AllProducts = () => {
       {
         loading ? <div className='w-full flex justify-center items-center'><span className="loading loading-spinner loading-md"></span>
 </div> : <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-white uppercase bg-[#484846] dark:bg-gray-700 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+          <thead className="text-xs text-white uppercase bg-[#484846]" >
             <tr>
               <th scope="col" className="px-6 py-3">Product name</th>
               <th scope="col" className="px-6 py-3">Color</th>
@@ -45,10 +45,10 @@ const AllProducts = () => {
               <tr
                 key={index}
                 className={`${
-                  index % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50 dark:bg-gray-800"
-                } border-b dark:border-gray-700`}
+                  index % 2 === 0 ? "bg-white " : "bg-gray-50 "
+                } border-b`}
               >
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                   {product.title}
                 </th>
                 <td className="px-6 py-4 flex space-x-2">
@@ -56,7 +56,7 @@ const AllProducts = () => {
                     <div
                       key={i}
                       style={{ backgroundColor: color }}
-                      className="w-6 h-6 rounded-full border border-gray-300 dark:border-gray-700"
+                      className="w-6 h-6 rounded-full border border-gray-300 "
                     ></div>
                   ))}
                 </td>
