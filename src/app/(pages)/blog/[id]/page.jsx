@@ -1,4 +1,5 @@
 "use client"
+import Cart from '@/app/components/Cart';
 import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
 import axios from 'axios';
@@ -44,6 +45,8 @@ const Blog = ({ params }) => {
             </span>
             <span className="absolute inset-0 w-0 h-full bg-gray-900 rounded-lg transition-all duration-250 group-hover:text-white group-hover:w-full"></span>
           </button>
+
+          <Cart/>
 
           {/* Skeleton loader for the title */}
           {loading ? (

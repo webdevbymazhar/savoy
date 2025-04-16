@@ -1,8 +1,8 @@
+"use client"
 import { useCart } from '@/context/CardContext';
-import {  Minus, Plus, ShoppingCart, X } from 'lucide-react';
+import { Minus, Plus, ShoppingCart, X } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react'
-
 
 const Cart = () => {
   const { cart, isCartOpen, setIsCartOpen, removeFromCart, updateQuantity, getCartTotal, getCartCount } = useCart();
@@ -84,4 +84,3 @@ const Cart = () => {
 };
 
 export default Cart
-
